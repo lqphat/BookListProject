@@ -1,0 +1,55 @@
+﻿@model IEnumerable<BookListProject.Models.Book>
+
+@{
+    ViewData["Title"] = "Index";
+}
+<div class="container row p-0 m-0">
+    <div class="col-10">
+        <h1 class="text-info">Book List</h1>
+    </div>
+    <div class="col-2">
+        <p>
+            <a asp-action="Create" class="btn btn-info form-control">Create New Book</a>
+        </p>
+    </div>
+
+    <div class="col-12 border p-3 mt-3">
+        <form method="post">
+            @if (Model.Count() > 0)
+            {
+                <table class="table table-striped border">
+                    <tr class="table-secondary">
+                        <th>
+                            <label asp-for="@Model.FirstOrDefault().Name"></label>
+                        </th>
+                        <th>
+                            <label asp-for="@Model.FirstOrDefault().Author"></label>
+                        </th>
+                        <th>
+                            <label asp-for="@Model.FirstOrDefault().ISBN"></label>
+                        </th>
+                        <th></th>
+                    </tr>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@Html.DisplayFor(name => item.Name)</td>
+                            <td>@Html.DisplayFor(name => item.Author)</td>
+                            <td>@Html.DisplayFor(name => item.ISBN)</td>
+
+                            <td>
+                                <a asp-action="Detail" class="btn btn-outline-success btn-sm font-weight-bold" asp-route-id="@item.Id">Detail</a>
+                                <a asp-action="Edit" class="btn btn-outline-warning btn-sm font-weight-bold" asp-route-id="@item.Id">Edit</a>
+                                <a asp-action="Delete" class="btn btn-outline-danger btn-sm font-weight-bold" asp-route-id="@item.Id">Delete</a>
+                            </td>
+                        </tr>
+                    }
+                </table>
+            }
+            else
+            {
+                <p>No book available</p>
+            }
+        </form>
+    </div>
+</div>
